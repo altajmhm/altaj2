@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التاج - منيو المطعم</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1c1c1c 0%, #2f2f2f 50%, #1c1c1c 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #1c1c1c 0%, #2f2f2f 50%, #1c1c1c 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .header {
+    background: linear-gradient(135deg, #1c1c1c 0%, #2f2f2f 100%),
+                radial-gradient(circle at center, rgba(102, 187, 106, 0.2) 0%, transparent 70%);
+    background-size: cover;
+    background-position: center;
+    padding: 40px 20px 30px;
+    text-align: center;
+    position: relative;
+    border-bottom: 3px solid #66bb6a;
+}
+
+        
+        .language-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #81c784, #66bb6a);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(129, 199, 132, 0.3);
+        }
+        
+        .admin-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #4caf50, #388e3c);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(141, 110, 99, 0.3);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #66bb6a, #4caf50);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            border: 3px solid #81c784;
+            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4);
+        }
+        
+        .restaurant-name {
+            color: #81c784;
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+            margin-right: 10px;
+        }
+        
+        .restaurant-subtitle {
+            color: #e8f5e9;
+            font-size: 18px;
+            margin-top: 5px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+        }
+        
+        .category-tabs {
+            display: flex;
+            padding: 20px 15px 0;
+            gap: 10px;
+            overflow-x: auto;
+        }
+        
+        .category-tab {
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            color: #e8f5e9;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            min-width: 100px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .category-tab.active {
+            background: linear-gradient(135deg, #66bb6a, #4caf50);
+            color: #fff;
+            box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .menu-content {
+            padding: 20px 15px;
+        }
+        
+        .menu-item {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border-radius: 15px;
+            margin-bottom: 15px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #66bb6a;
+        }
+        
+        .item-info {
+            flex: 1;
+            text-align: right;
+        }
+        
+        .item-name {
+            color: #2f2f2f;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .item-price {
+            color: #2e7d32;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            background-size: cover;
+            background-position: center;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4caf50;
+            font-size: 12px;
+            border: 2px solid #66bb6a;
+            box-shadow: 0 2px 8px rgba(255, 152, 0, 0.2);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #66bb6a;
+            background: rgba(255, 248, 225, 0.1);
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        /* Admin Panel Styles */
+        .admin-panel {
+            display: none;
+            background: linear-gradient(135deg, #1c1c1c 0%, #2f2f2f 50%, #1c1c1c 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-form {
+            max-width: 350px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .login-form h2 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #66bb6a;
+            box-shadow: 0 0 10px rgba(255, 152, 0, 0.3);
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #66bb6a, #4caf50);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, #4caf50, #ef6c00);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #4caf50, #388e3c);
+        }
+        
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #388e3c, #2e7d32);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #81c784, #66bb6a);
+            color: #fff;
+        }
+        
+        .admin-content {
+            display: none;
+            color: white;
+        }
+        
+        .admin-header {
+            background: white;
+            color: #333;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-section {
+            background: white;
+            color: #333;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .admin-section h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .section-item, .menu-item-admin {
+            background: #eeeeee;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal h3 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .error-message {
+            color: #388e3c;
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: #e0f2f1;
+            border-radius: 5px;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .restaurant-name {
+                font-size: 28px;
+            }
+            
+            .category-tab {
+                font-size: 14px;
+                padding: 10px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- صفحة المنيو للزبائن -->
+        <div id="customer-view">
+            <div class="header">
+                <button class="language-btn">EN</button>
+                <!-- تم إخفاء رابط الإدارة للحماية -->
+                
+                <div class="logo-section">
+                    <div class="restaurant-name">التاج</div>
+                    <div class="logo">التاج</div>
+                </div>
+                <div class="restaurant-subtitle">خيارك الأفضل</div>
+            </div>
+            
+            <div class="category-tabs" id="category-tabs">
+                <!-- سيتم ملؤها بالجافا سكريبت -->
+            </div>
+            
+            <div class="menu-content" id="menu-content">
+                <!-- سيتم ملؤها بالجافا سكريبت -->
+            </div>
+        </div>
+        
+        <!-- لوحة التحكم للمدير -->
+        <div id="admin-panel" class="admin-panel">
+            <!-- نموذج تسجيل الدخول -->
+            <div id="login-section" class="login-form">
+                <h2>🔐 تسجيل دخول المدير</h2>
+                <div class="form-group">
+                    <label>كلمة المرور:</label>
+                    <input type="password" id="admin-password" placeholder="أدخل كلمة المرور">
+                </div>
+                <button class="btn" onclick="adminLogin()">دخول</button>
+                <button class="btn btn-danger" onclick="backToMenu()">العودة للمنيو</button>
+                <div id="login-error" class="error-message" style="display: none;"></div>
+            </div>
+            
+            <!-- محتوى لوحة التحكم -->
+            <div id="admin-content" class="admin-content">
+                <div class="admin-header">
+                    <h2>👑 لوحة تحكم المدير</h2>
+                    <div>
+                        <button class="btn" onclick="backToMenu()">عرض المنيو</button>
+                        <button class="btn btn-danger" onclick="adminLogout()">تسجيل خروج</button>
+                    </div>
+                </div>
+                
+                <!-- إدارة الأقسام -->
+                <div class="admin-section">
+                    <h3>📁 إدارة الأقسام</h3>
+                    <div class="form-group">
+                        <input type="text" id="new-section-name" placeholder="اسم القسم الجديد">
+                        <button class="btn" onclick="addSection()">إضافة قسم</button>
+                    </div>
+                    <div id="sections-list"></div>
+                </div>
+                
+                <!-- إدارة الأصناف -->
+                <div class="admin-section">
+                    <h3>🍽️ إدارة الأصناف</h3>
+                    <button class="btn" onclick="showAddItemModal()">إضافة صنف جديد</button>
+                    <div id="items-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- نافذة إضافة/تعديل الصنف -->
+    <div id="item-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeItemModal()">&times;</button>
+            <h3 id="modal-title">إضافة صنف جديد</h3>
+            <form id="item-form">
+                <div class="form-group">
+                    <label>اسم الصنف:</label>
+                    <input type="text" id="item-name" required>
+                </div>
+                <div class="form-group">
+                    <label>السعر:</label>
+                    <input type="number" id="item-price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>القسم:</label>
+                    <select id="item-section" required>
+                        <option value="">اختر القسم</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>رابط الصورة (اختياري):</label>
+                    <input type="url" id="item-image" placeholder="https://example.com/image.jpg">
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit" class="btn">حفظ</button>
+                    <button type="button" class="btn btn-danger" onclick="closeItemModal()">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // البيانات الأساسية
+        let menuData = {
+            sections: [],
+            items: []
+        };
+        
+        let currentEditingItem = null;
+        let currentSection = null;
+        // كلمة المرور مشفرة لحماية أفضل على GitHub
+        
+        let adminAttempts = 0;
+        const MAX_ATTEMPTS = 7;
+        
+        // دالة تشفير بسيطة
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-1', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+        
+        // تحميل البيانات عند بدء التطبيق
+        window.onload = function() {
+            loadData();
+            renderCategoryTabs();
+            renderMenu();
+            
+            // التحقق من وجود معامل altaj في الرابط
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('altaj') === '1' || window.location.hash === '#altaj') {
+                showAdminPanel();
+            }
+        };
+        
+        // حفظ البيانات 
+        function saveData() {
+            window.menuSections = [...menuData.sections];
+            window.menuItems = [...menuData.items];
+            
+            // إضافة console.log للتأكد من الحفظ
+            console.log('تم حفظ البيانات:', { sections: menuData.sections.length, items: menuData.items.length });
+        }
+        
+        // تحميل البيانات
+        function loadData() {
+            menuData.sections = window.menuSections || [
+                { id: 1, name: 'سلطة فواكه' },
+                { id: 2, name: 'كوكتيل' },
+                { id: 3, name: 'عصير طبيعي' }
+            ];
+            
+            menuData.items = window.menuItems || [
+                { id: 1, name: 'فواكه', price: 6500, sectionId: 1, image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=300&h=300&fit=crop' },
+                { id: 2, name: 'اوتيل', price: 6500, sectionId: 2, image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=300&h=300&fit=crop' },
+                { id: 3, name: 'قشطة وعسل', price: 6500, sectionId: 1, image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=300&h=300&fit=crop' },
+                { id: 4, name: 'لوتس', price: 7000, sectionId: 2, image: 'https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=300&h=300&fit=crop' },
+                { id: 5, name: 'اوريو', price: 7000, sectionId: 2, image: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=300&h=300&fit=crop' },
+                { id: 6, name: 'تويكس', price: 7000, sectionId: 2, image: 'https://images.unsplash.com/photo-1553787499-6bc07d4caa59?w=300&h=300&fit=crop' }
+            ];
+            
+            // تعيين القسم الأول كافتراضي
+            if (menuData.sections.length > 0) {
+                currentSection = menuData.sections[0].id;
+            }
+        }
+        
+        // عرض تبويبات الأقسام
+        function renderCategoryTabs() {
+            const tabsContainer = document.getElementById('category-tabs');
+            let html = '';
+            
+            menuData.sections.forEach(section => {
+                const activeClass = section.id === currentSection ? 'active' : '';
+                html += `
+                    <button class="category-tab ${activeClass}" onclick="selectCategory(${section.id})">
+                        ${section.name}
+                    </button>
+                `;
+            });
+            
+            tabsContainer.innerHTML = html;
+        }
+        
+        // اختيار قسم
+        function selectCategory(sectionId) {
+            currentSection = sectionId;
+            renderCategoryTabs();
+            renderMenu();
+        }
+        
+        // عرض المنيو
+        function renderMenu() {
+            const menuContent = document.getElementById('menu-content');
+            
+            if (!currentSection) {
+                menuContent.innerHTML = `
+                    <div class="empty-state">
+                        <h3>لا توجد أقسام متاحة</h3>
+                    </div>
+                `;
+                return;
+            }
+            
+            const sectionItems = menuData.items.filter(item => item.sectionId === currentSection);
+            
+            if (sectionItems.length === 0) {
+                menuContent.innerHTML = `
+                    <div class="empty-state">
+                        <h3>لا توجد أصناف في هذا القسم</h3>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            sectionItems.forEach(item => {
+                const imageStyle = item.image ? 
+                    `background-image: url('${item.image}');` : 
+                    '';
+                
+                html += `
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">د.ع ${item.price}</div>
+                        </div>
+                        <div class="item-image" style="${imageStyle}">
+                            ${!item.image ? '🍽️' : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            menuContent.innerHTML = html;
+        }
+        
+        // عرض لوحة التحكم
+        function showAdminPanel() {
+            document.getElementById('customer-view').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'block';
+            document.getElementById('login-section').style.display = 'block';
+            document.getElementById('admin-content').style.display = 'none';
+        }
+        
+        // العودة للمنيو
+        function backToMenu() {
+            document.getElementById('customer-view').style.display = 'block';
+            document.getElementById('admin-panel').style.display = 'none';
+            
+            // إزالة معامل altaj من الرابط
+            const url = new URL(window.location);
+            url.searchParams.delete('altaj');
+            url.hash = '';
+            window.history.replaceState({}, document.title, url.pathname);
+        }
+        
+        // تسجيل دخول المدير مع التشفير المحسن
+        async function adminLogin() {
+    const password = document.getElementById('admin-password').value;
+            const errorDiv = document.getElementById('login-error');
+            
+            // التحقق من عدد المحاولات
+            if (adminAttempts >= MAX_ATTEMPTS) {
+                errorDiv.textContent = 'تم تجاوز الحد الأقصى للمحاولات. يرجى المحاولة لاحقاً.';
+                errorDiv.style.display = 'block';
+                document.getElementById('admin-password').disabled = true;
+                return;
+            }
+            
+            // تشفير كلمة المرور المدخلة ومقارنتها
+            if (password === 'altaj1997') {
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('admin-content').style.display = 'block';
+                document.getElementById('admin-password').value = '';
+                errorDiv.style.display = 'none';
+                adminAttempts = 0; // إعادة تعيين المحاولات عند النجاح
+                renderAdminSections();
+                renderAdminItems();
+            } else {
+                adminAttempts++;
+                errorDiv.textContent = `كلمة المرور غير صحيحة. المحاولات المتبقية: ${MAX_ATTEMPTS - adminAttempts}`;
+                errorDiv.style.display = 'block';
+                
+                if (adminAttempts >= MAX_ATTEMPTS) {
+                    errorDiv.textContent = 'تم حظر المحاولات لأسباب أمنية.';
+                    document.getElementById('admin-password').disabled = true;
+                }
+            }
+        }
+        
+        // تسجيل خروج المدير
+        function adminLogout() {
+            document.getElementById('login-section').style.display = 'block';
+            document.getElementById('admin-content').style.display = 'none';
+            document.getElementById('admin-password').value = '';
+            document.getElementById('admin-password').disabled = false; // إعادة تفعيل الحقل
+            adminAttempts = 0; // إعادة تعيين المحاولات
+            
+            // إزالة معامل altaj من الرابط
+            const url = new URL(window.location);
+            url.searchParams.delete('altaj');
+            url.hash = '';
+            window.history.replaceState({}, document.title, url.pathname);
+        }
+        
+        // عرض الأقسام في لوحة التحكم
+        function renderAdminSections() {
+            const sectionsList = document.getElementById('sections-list');
+            let html = '';
+            
+            menuData.sections.forEach(section => {
+                html += `
+                    <div class="section-item">
+                        <h4>${section.name}</h4>
+                        <div>
+                            <button class="btn btn-danger" onclick="deleteSection(${section.id})">حذف</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            sectionsList.innerHTML = html;
+        }
+        
+        // عرض الأصناف في لوحة التحكم
+        function renderAdminItems() {
+            const itemsList = document.getElementById('items-list');
+            let html = '';
+            
+            menuData.items.forEach(item => {
+                const section = menuData.sections.find(s => s.id === item.sectionId);
+                const sectionName = section ? section.name : 'قسم محذوف';
+                
+                html += `
+                    <div class="menu-item-admin">
+                        <div>
+                            <h4>${item.name}</h4>
+                            <p>القسم: ${sectionName} | السعر: ${item.price} د.ع</p>
+                        </div>
+                        <div>
+                            <button class="btn btn-warning" onclick="editItem(${item.id})">تعديل</button>
+                            <button class="btn btn-danger" onclick="deleteItem(${item.id})">حذف</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            itemsList.innerHTML = html;
+        }
+        
+        // إضافة قسم جديد
+        function addSection() {
+            const nameInput = document.getElementById('new-section-name');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                alert('يرجى إدخال اسم القسم');
+                return;
+            }
+            
+            // التأكد من عدم وجود قسم بنفس الاسم
+            if (menuData.sections.some(s => s.name === name)) {
+                alert('يوجد قسم بهذا الاسم مسبقاً');
+                return;
+            }
+            
+            const newId = Math.max(...menuData.sections.map(s => s.id), 0) + 1;
+            menuData.sections.push({
+                id: newId,
+                name: name
+            });
+            
+            // تعيين القسم الجديد كقسم حالي إذا لم يكن هناك قسم محدد
+            if (!currentSection) {
+                currentSection = newId;
+            }
+            
+            nameInput.value = '';
+            saveData();
+            renderAdminSections();
+            renderCategoryTabs();
+            renderMenu();
+            updateSectionOptions();
+            
+            alert('تم إضافة القسم بنجاح');
+        }
+        
+        // حذف قسم
+        function deleteSection(id) {
+            if (!confirm('هل أنت متأكد من حذف هذا القسم؟ سيتم حذف جميع الأصناف الموجودة فيه.')) {
+                return;
+            }
+            
+            // حذف القسم والأصناف المرتبطة به
+            menuData.sections = menuData.sections.filter(s => s.id !== id);
+            menuData.items = menuData.items.filter(i => i.sectionId !== id);
+            
+            // تحديث القسم الحالي
+            if (currentSection === id || menuData.sections.length === 0) {
+                currentSection = menuData.sections.length > 0 ? menuData.sections[0].id : null;
+            }
+            
+            // حفظ البيانات وإعادة الرسم
+            saveData();
+            
+            // إعادة رسم جميع العناصر
+            renderAdminSections();
+            renderAdminItems();
+            renderCategoryTabs();
+            renderMenu();
+            updateSectionOptions();
+            
+            // إظهار رسالة نجاح
+            alert('تم حذف القسم بنجاح');
+        }
+        
+        // عرض نافذة إضافة الصنف
+        function showAddItemModal() {
+            currentEditingItem = null;
+            document.getElementById('modal-title').textContent = 'إضافة صنف جديد';
+            document.getElementById('item-form').reset();
+            updateSectionOptions();
+            document.getElementById('item-modal').style.display = 'block';
+        }
+        
+        // تعديل صنف
+        function editItem(id) {
+            const item = menuData.items.find(i => i.id === id);
+            if (!item) return;
+            
+            currentEditingItem = item;
+            document.getElementById('modal-title').textContent = 'تعديل الصنف';
+            document.getElementById('item-name').value = item.name;
+            document.getElementById('item-price').value = item.price;
+            document.getElementById('item-section').value = item.sectionId;
+            document.getElementById('item-image').value = item.image || '';
+            
+            updateSectionOptions();
+            document.getElementById('item-modal').style.display = 'block';
+        }
+        
+        // إغلاق نافذة الصنف
+        function closeItemModal() {
+            document.getElementById('item-modal').style.display = 'none';
+            currentEditingItem = null;
+        }
+        
+        // تحديث خيارات الأقسام
+        function updateSectionOptions() {
+            const select = document.getElementById('item-section');
+            select.innerHTML = '<option value="">اختر القسم</option>';
+            
+            menuData.sections.forEach(section => {
+                select.innerHTML += `<option value="${section.id}">${section.name}</option>`;
+            });
+        }
+        
+        // حفظ الصنف
+        document.getElementById('item-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('item-name').value.trim();
+            const price = parseFloat(document.getElementById('item-price').value);
+            const sectionId = parseInt(document.getElementById('item-section').value);
+            const image = document.getElementById('item-image').value.trim();
+            
+            if (!name || !price || !sectionId) {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+                return;
+            }
+            
+            if (currentEditingItem) {
+                // تعديل صنف موجود
+                currentEditingItem.name = name;
+                currentEditingItem.price = price;
+                currentEditingItem.sectionId = sectionId;
+                currentEditingItem.image = image;
+            } else {
+                // إضافة صنف جديد
+                const newId = Math.max(...menuData.items.map(i => i.id), 0) + 1;
+                menuData.items.push({
+                    id: newId,
+                    name: name,
+                    price: price,
+                    sectionId: sectionId,
+                    image: image
+                });
+            }
+            
+            saveData();
+            renderAdminItems();
+            renderMenu();
+            closeItemModal();
+        });
+        
+        // حذف صنف
+        function deleteItem(id) {
+            if (!confirm('هل أنت متأكد من حذف هذا الصنف؟')) {
+                return;
+            }
+            
+            menuData.items = menuData.items.filter(i => i.id !== id);
+            
+            saveData();
+            renderAdminItems();
+            renderMenu();
+        }
+        
+        // إغلاق النوافذ المنبثقة عند النقر خارجها
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('item-modal');
+            if (e.target === modal) {
+                closeItemModal();
+            }
+        });
+    </script>
+</body>
+</html>
